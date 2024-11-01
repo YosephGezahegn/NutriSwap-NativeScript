@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="Browse Foods" class="bg-green-500 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+        <ActionItem tap="{{ onFilterTap }}" ios.position="right" android.position="actionBar">
+            <Label text="&#xf0b0;" class="fas text-xl" />
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="auto, *">
+        <!-- Search Bar -->
+        <SearchBar row="0" hint="Search foods..." text="{{ searchQuery }}" 
+                  submit="{{ onSearch }}" clear="{{ onClear }}"
+                  class="bg-white m-2 rounded-lg" />
+
+        <!-- Food List -->
+        <GridLayout row="1">
+            <ListView items="{{ foods }}" class="list-group" itemLoading="{{ onItemLoading }}">
+                <ListView.itemTemplate>
+                    <GridLayout columns="auto, *, auto" rows="auto, auto, auto" class="bg-white m-2 p-4 rounded-xl">
+                        <!-- Food Image -->
+                        <Image col="0" rowSpan="3" src="{{ imageUrl }}" 
+                               class="w-24 h-24 rounded-lg mr-4" />
+                        
+                        <!-- Food Details -->
+                        <GridLayout col="1" row="0" columns="*, auto">
+                            <Label col="0" text="{{ name }}" class="text-lg font-bold" />
+                            <Label col="1" text="{{ price }}" class="text-green-600 font-bold" />
+                        </GridLayout>
+                        
+                        <Label col="1" row="1" text="{{ description }}" 
+                               class="text-gray-600 text-sm" textWrap="true" />
+                        
+                        <!-- Nutrition Pills -->
+                        <StackLayout col="1" row="2" orientation="horizontal" class="mt-2">
+                            <Label text="{{ nutrients.calories }} cal" 
+                                   class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full mr-2" />
+                            <Label text="{{ nutrients.protein }}g protein" 
+                                   class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full mr-2" />
+                            <Label text="{{ nutrients.carbs }}g carbs" 
+                                   class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full" />
+                        </StackLayout>
+
+                        <!-- Add Button -->
+                        <Button col="2" rowSpan="3" text="+" tap="{{ $parent.onAddFood }}"
+                                class="bg-green-500 text-white text-lg w-12 h-12 rounded-full" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator busy="{{ isLoading }}" />
+        </GridLayout>
+    </GridLayout>
+</Page>

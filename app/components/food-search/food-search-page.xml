@@ -1,0 +1,33 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="Add Food" class="bg-green-500 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <GridLayout rows="auto, *">
+        <GridLayout row="0" rows="auto" columns="*, auto" class="p-4">
+            <SearchBar col="0" hint="Search foods..." text="{{ searchQuery }}" 
+                      submit="{{ onSearch }}" clear="{{ onClear }}" 
+                      class="bg-white rounded-lg" />
+            <Button col="1" text="Scan" tap="{{ onScanBarcode }}" 
+                    class="bg-blue-500 text-white ml-2 px-4 rounded-lg" />
+        </GridLayout>
+
+        <GridLayout row="1">
+            <ActivityIndicator busy="{{ isLoading }}" />
+            
+            <ListView items="{{ searchResults }}" class="list-group">
+                <ListView.itemTemplate>
+                    <GridLayout columns="*, auto" rows="auto, auto" class="p-4 bg-white rounded-lg m-1">
+                        <Label col="0" row="0" text="{{ name }}" class="font-bold" />
+                        <StackLayout col="0" row="1" orientation="horizontal">
+                            <Label text="{{ servingSize }}" class="text-sm text-gray-500 mr-2" />
+                            <Label text="{{ nutrients.calories }} cal" class="text-sm text-gray-500" />
+                        </StackLayout>
+                        <Button col="1" rowSpan="2" text="Add" tap="{{ $parent.onAddFood }}"
+                                class="bg-green-500 text-white text-sm p-2 rounded" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </GridLayout>
+    </GridLayout>
+</Page>

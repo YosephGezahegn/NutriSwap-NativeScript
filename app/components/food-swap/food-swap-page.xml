@@ -1,0 +1,28 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="Suggested Swaps" class="bg-green-500 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <StackLayout class="p-4">
+        <!-- Current Food Info -->
+        <StackLayout class="bg-white p-4 rounded-lg mb-4">
+            <Label text="Current Food" class="text-lg font-bold mb-2" />
+            <Label text="{{ currentFood.name }}" class="font-semibold" />
+            <Label text="{{ currentFood.nutrients.calories }} calories" class="text-gray-500" />
+        </StackLayout>
+
+        <!-- Suggested Alternatives -->
+        <Label text="Healthier Alternatives" class="text-lg font-bold mb-2" />
+        <ListView items="{{ suggestions }}" class="list-group" height="100%">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto" rows="auto, auto, auto" class="p-4 bg-white rounded-lg m-1">
+                    <Label col="0" row="0" text="{{ name }}" class="font-bold" />
+                    <Label col="0" row="1" text="{{ nutrients.calories }} calories" class="text-sm text-gray-500" />
+                    <Label col="0" row="2" text="{{ benefitsText }}" class="text-xs text-green-600" textWrap="true" />
+                    <Button col="1" rowSpan="3" text="Swap" tap="{{ $parent.onSwapFood }}"
+                            class="bg-green-500 text-white text-sm p-2 rounded" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
+</Page>

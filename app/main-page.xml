@@ -1,0 +1,78 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="NutriSwap" class="bg-green-500 text-white">
+        <ActionItem tap="{{ onSettingsTap }}" ios.position="right" android.position="actionBar">
+            <Label text="&#xf013;" class="fas text-xl" />
+        </ActionItem>
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Summary Card -->
+            <GridLayout rows="auto" columns="*" class="bg-white rounded-xl p-4 mb-4 shadow">
+                <StackLayout>
+                    <Label text="Daily Summary" class="text-lg font-bold mb-2" />
+                    <GridLayout rows="auto" columns="*, *, *" class="text-center">
+                        <StackLayout col="0" class="p-2">
+                            <Label text="{{ remainingCalories }}" class="text-2xl font-bold text-green-600" />
+                            <Label text="cal left" class="text-xs text-gray-500" />
+                            <Progress value="{{ caloriesProgress }}" maxValue="100" class="m-1 h-1 bg-green-200" />
+                        </StackLayout>
+                        <StackLayout col="1" class="p-2">
+                            <Label text="{{ remainingProtein }}g" class="text-2xl font-bold text-blue-600" />
+                            <Label text="protein" class="text-xs text-gray-500" />
+                            <Progress value="{{ proteinProgress }}" maxValue="100" class="m-1 h-1 bg-blue-200" />
+                        </StackLayout>
+                        <StackLayout col="2" class="p-2">
+                            <Label text="{{ remainingCarbs }}g" class="text-2xl font-bold text-purple-600" />
+                            <Label text="carbs" class="text-xs text-gray-500" />
+                            <Progress value="{{ carbsProgress }}" maxValue="100" class="m-1 h-1 bg-purple-200" />
+                        </StackLayout>
+                    </GridLayout>
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Quick Actions -->
+            <GridLayout rows="auto" columns="*, *, *" class="mb-4">
+                <Button text="+ Add Food" tap="{{ onAddFoodTap }}" 
+                    col="0" class="bg-green-500 text-white font-bold py-3 rounded-xl m-1" />
+                <Button text="Menu" tap="{{ onMenuTap }}" 
+                    col="1" class="bg-blue-500 text-white font-bold py-3 rounded-xl m-1" />
+                <Button text="Quick Add" tap="{{ onQuickAddTap }}" 
+                    col="2" class="bg-purple-500 text-white font-bold py-3 rounded-xl m-1" />
+            </GridLayout>
+
+            <!-- Today's Meals -->
+            <Label text="Today's Meals" class="text-xl font-bold mb-2" />
+            <ListView items="{{ todaysMeals }}" class="list-group" height="300">
+                <ListView.itemTemplate>
+                    <GridLayout columns="auto, *, auto" rows="auto, auto" class="p-4 bg-white rounded-xl m-1 shadow">
+                        <Label col="0" rowSpan="2" class="mr-3">
+                            <FormattedString>
+                                <Span text="{{ mealIcon }}" class="fas text-2xl" />
+                            </FormattedString>
+                        </Label>
+                        <Label col="1" row="0" text="{{ name }}" class="font-bold" />
+                        <Label col="1" row="1" class="text-sm text-gray-500">
+                            <FormattedString>
+                                <Span text="{{ nutrients.calories }} cal • " />
+                                <Span text="{{ nutrients.protein }}g protein" />
+                            </FormattedString>
+                        </Label>
+                        <Button col="2" rowSpan="2" text="Swap" tap="{{ $parent.onSwapTap }}" 
+                                class="bg-blue-500 text-white text-sm p-2 rounded-xl" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <!-- Nutrition Insights -->
+            <Label text="Nutrition Insights" class="text-xl font-bold mt-4 mb-2" />
+            <GridLayout rows="auto" columns="*" class="bg-white rounded-xl p-4 shadow">
+                <StackLayout>
+                    <Label text="{{ nutritionTip }}" textWrap="true" class="text-sm text-gray-700" />
+                    <Button text="View More Insights" tap="{{ onViewInsightsTap }}" 
+                            class="bg-gray-200 text-gray-700 text-sm p-2 rounded-xl mt-2" />
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>

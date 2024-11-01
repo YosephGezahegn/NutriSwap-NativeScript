@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="Restaurant Menu" class="bg-green-500 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Category Tabs -->
+            <GridLayout columns="*, *, *" class="mb-4">
+                <Button col="0" text="Breakfast" tap="{{ selectCategory }}" 
+                        class="{{ selectedCategory === 'breakfast' ? 'bg-green-500 text-white' : 'bg-white text-gray-700' }} 
+                               font-semibold py-2 rounded-lg m-1" />
+                <Button col="1" text="Lunch" tap="{{ selectCategory }}"
+                        class="{{ selectedCategory === 'lunch' ? 'bg-green-500 text-white' : 'bg-white text-gray-700' }}
+                               font-semibold py-2 rounded-lg m-1" />
+                <Button col="2" text="Dinner" tap="{{ selectCategory }}"
+                        class="{{ selectedCategory === 'dinner' ? 'bg-green-500 text-white' : 'bg-white text-gray-700' }}
+                               font-semibold py-2 rounded-lg m-1" />
+            </GridLayout>
+
+            <!-- Menu Items -->
+            <ListView items="{{ filteredMenuItems }}" class="list-group" height="100%">
+                <ListView.itemTemplate>
+                    <GridLayout columns="auto, *" rows="auto, auto, auto" class="bg-white m-2 p-4 rounded-xl shadow">
+                        <!-- Dish Image -->
+                        <Image col="0" rowSpan="3" src="{{ imageUrl }}" 
+                               class="w-24 h-24 rounded-lg mr-4" />
+                        
+                        <!-- Dish Details -->
+                        <GridLayout col="1" row="0" columns="*, auto">
+                            <Label col="0" text="{{ name }}" class="text-lg font-bold" />
+                            <Label col="1" text="{{ price }}" class="text-green-600 font-bold" />
+                        </GridLayout>
+                        
+                        <Label col="1" row="1" text="{{ description }}" 
+                               class="text-gray-600 text-sm" textWrap="true" />
+                        
+                        <!-- Dietary Tags -->
+                        <StackLayout col="1" row="2" orientation="horizontal" class="mt-2">
+                            <Label text="{{ dietaryInfo }}" 
+                                   class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full mr-2" />
+                            <Label text="{{ calories }} cal" 
+                                   class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full" />
+                        </StackLayout>
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+</Page>
